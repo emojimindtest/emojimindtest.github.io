@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="./favicon.jpg" type="image/x-icon">
+<title>이모지 심리테스트</title>
+<meta name="description" content="감정과 성격을 알아보는 귀엽고 재밌는 방법, 이모지 심리테스트">
+<meta name="keywords" content="이모지, 심리테스트, 캐릭터">
+<style>
+    @font-face {
+            font-family: 'Cafe24Ssurround';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24Ssurround.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+    }
+
+    *{
+        font-family: Cafe24Ssurround, Arial, sans-serif;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 600px;
+        padding: 20px;
+    }
+
+    .content-box {
+        width: 90%;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+        border-radius: 30px; /* 둥글게 만들기 */
+        background-color: #f8f8f8; /* 배경색 추가 */
+    }
+
+    .content-box img {
+        max-width: 100%;
+        border-radius: 30px 30px 0 0; /* 둥글게 만들기 */
+    }
+
+    .content-box h3 {
+        padding: 1px; /* 텍스트와 이미지 사이의 간격 조절 */
+        max-width: 100%;
+        font-size: 20px; /* 적절한 크기로 수정 */
+        text-align: center; /* 가운데 정렬 추가 */
+    }
+
+    .content-box p {
+        padding-left: 30px; /* 텍스트와 이미지 사이의 간격 조절 */
+        padding-right: 30px; /* 텍스트와 이미지 사이의 간격 조절 */
+        padding-bottom: 10px; /* 텍스트와 이미지 사이의 간격 조절 */
+        max-width: 100%;
+        font-size: 17px; /* 적절한 크기로 수정 */
+        text-align: left; /* 가운데 정렬 추가 */
+    }
+
+    .chat-button {
+        width: 50px;
+        height: 50px;
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background-color: #007BFF;
+        color: #fff;
+        border: 4px solid rgb(125, 0, 141);
+        border-radius: 20px;
+        cursor: pointer;
+        background-image: url(./insta.jpg);
+    }
+
+    .footer {
+        font-size: 10px;
+        background-color: #ffffff;
+        text-align: center;
+        bottom: 0;
+        width: 100%;
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <h1>이모지 심리테스트🤔</h1>
+        <div class="content-box" id="content1">
+        <img src="./content_img1.jpg" alt="이모지 심리테스트">
+        <h3>이모지 캐릭터 테스트🧙‍♀️</h3>
+        <p>몇가지 질문에 답하면 당신에게 딱 맞는 이모지 캐릭터를 찾아드립니다!</p>
+    </div>
+
+        <div class="content-box" id="content2">
+            <img src="./content_img2.jpg" alt="업데이트 이미지">
+            <h3>업데이트 준비중..</h3>
+        </div>
+
+        <div class="content-box">
+            <img src="./content_img3.jpg" alt="업데이트 이미지">
+            <h3>업데이트 준비중..</h3>
+        </div>
+
+    <div class="chat-button" id="insta"></div>
+
+    <footer class="footer">
+        <p>이모지 심리테스트는 수익창출, 개인정보 수집을 하지 않습니다.</p>
+        <p>2023 EmojiMindTest 이모지 심리테스트</p>
+    </footer>
+    <script>
+
+        // 페이지 이동 정보 객체
+        var state = {
+            page: '1'
+        };
+
+        var content1 = document.getElementById("content1");
+        var content2 = document.getElementById("content2");
+
+        content1.addEventListener('click', function() { // 콘텐츠1
+            state.page = 1;
+            localStorage.setItem('state', JSON.stringify(state)); // 객체를 내부 스토리지에 저장
+            window.location.href = './loading.html'; // 로딩 페이지 이동
+        });
+
+        content2.addEventListener('click', function() { // 콘텐츠1
+            state.page = 2;
+            localStorage.setItem('state', JSON.stringify(state)); // 객체를 내부 스토리지에 저장
+            window.location.href = './loading.html'; // 로딩 페이지 이동
+        });
+
+        document.getElementById('insta').addEventListener('click', function() {
+            window.location.href = 'https://www.instagram.com/emojimindtest/';
+        });
+    </script>
+</body>
+</html>

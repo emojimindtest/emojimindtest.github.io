@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로딩중...</title>
+    <style>
+        @font-face {
+            font-family: 'Cafe24Ssurround';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24Ssurround.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        *{
+            font-family: Cafe24Ssurround, Arial, sans-serif;
+        }
+
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 50px;
+            height: 50px;
+            border: 25px solid #f8a5c2;
+            border-radius: 50%;
+            animation: move 3s infinite linear;
+            position: relative; /* 추가 */
+        }
+
+        .loading-text { /* 추가 */
+            font-size: 20px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #612032;
+        }
+
+        .emoji-container {
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+
+        .emoji {
+            font-size: 50px;
+            animation: rotateEmoji 360s infinite linear;
+        }
+
+        @keyframes move {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes rotateEmoji {
+            0% { transform: translateY(-100%) rotate(0deg); }
+            100% { transform: translateY(-100%) rotate(360deg); }
+        }
+
+        .footer {
+            font-size: 10px;
+            background-color: #f8f9fa;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="emoji-container">
+            <div class="emoji">🤢</div>
+        </div>
+    </div>
+    <div class="loading-text">로딩중...</div> <!-- 추가 -->
+
+    <footer class="footer">
+        <p>2023 EmojiMindTest</p>
+    </footer>
+
+    <script>
+        var moveState = JSON.parse(localStorage.getItem('state'));
+
+        if(moveState.page == 1){
+            setTimeout(function() {
+                window.location.href = 'emojicharactertest.html';
+            }, 4000);
+        } else if(moveState.page == 2){
+            setTimeout(function() {
+                window.location.href = 'index.html';
+            }, 4000);
+        }
+
+        // 각 테스트별 결과로...
+        if(moveState.page == 10){
+            setTimeout(function() {
+                window.location.href = 'emojicharactertestresult.html';
+            }, 4000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이모지 캐릭터 테스트</title>
+    <style>
+        @font-face {
+            font-family: 'Cafe24Ssurround';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24Ssurround.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        *{
+            font-family: Cafe24Ssurround, Arial, sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .emoji-container {
+            position: relative;
+            width: 50%;
+            height: 80%;
+            overflow: visible;
+        }
+
+        .emoji-button {
+            bottom: 100px;
+            width: 200px;
+            font-size: calc(10px + 2vmin);
+            padding: 20px;
+            background-color: #f0f0f0;
+            border: solid 5px black;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .emoji-button:hover {
+            background-color: #ddd;
+        }
+
+        .emoji {
+            font-size: calc(20px + 10vmin);
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            opacity: 1;
+            transition: opacity 0.5s ease-out;
+            transform: translate(-50%, -50%);
+        }
+
+        .footer {
+            font-size: 10px;
+            background-color: #f8f9fa;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <footer class="footer">
+        <p>2023 EmojiMindTest</p>
+    </footer>
+    <div class="emoji-container">
+        <button id="flyAwayButton" class="emoji-button">결과 확인</button>
+        <script>
+            // 점수 합계
+            var sum = 0;
+
+            /* // 테스트용 객체
+            var result = {
+                Q1: 1,
+                Q2: 2,
+                Q3: 0,
+                Q3: 0,
+                Q4: 0,
+                Q5: 0,
+                Q6: 0,
+                Q7: 0,
+                Q8: 0,
+                Q9: 0,
+                Q10: 0,
+                Q11: 0,
+            }; */
+
+            var Array = [
+            ['👸', '🌹', '👸로열 뷰티 퀸🌹','./resultIMG/1.jpg'],
+            ['🧚‍♂️', '🌿', '🧚‍♂️신비로운 숲의 요정🌿','./resultIMG/2.jpg'],
+            ['🎩', '🐇', '🎩토끼 마법사🐇','./resultIMG/3.jpg'],
+            ['🌊', '🧜‍♀️', '🌊바닷속 공주🧜‍♀️','./resultIMG/4.jpg'],
+            ['👮‍♂️', '🔍', '👮‍♂️경찰🔍','./resultIMG/5.jpg'],
+            ['🐉', '🏰', '🐉용 키우는 용사🏰','./resultIMG/6.jpg'],
+            ['🎨', '🖌️', '🎨예술가🖌️','./resultIMG/7.jpg'],
+            ['🧙‍♀️', '📖', '🧙‍♀️마법사📖','./resultIMG/8.jpg'],
+            ['🧛‍♂️', '🦇', '🧛‍♂️뱀파이어 군주🦇','./resultIMG/9.jpg'],
+            ['👨‍🍳', '🥖', '👨‍🍳요리사🥖','./resultIMG/10.jpg'],
+            ['🕵️‍♀️', '🔒', '🕵️‍♀️암호 해독가🔒','./resultIMG/11.jpg'],
+            ['👩‍🔬', '🧪', '👩‍🔬과학자🧪','./resultIMG/12.jpg'],
+            ['🐺', '🌕', '🐺늑대인간🌕','./resultIMG/13.jpg'],
+            ['🗡️', '🛡️', '🗡️기사🛡️','./resultIMG/14.jpg'],
+            ['🤖', '🌐', '🤖로봇 공학자🌐','./resultIMG/15.jpg'],
+            ['🚢', '🌊', '🚢해적왕🌊','./resultIMG/16.jpg'],
+            ['🤠', '🐎', '🤠서부의 무법자🐎','./resultIMG/17.jpg'],
+            ['🤖', '🔧', '🤖로봇 수리공🔧','./resultIMG/18.jpg'],
+            ['👩‍⚕️', '💉', '👩‍⚕️의사💉','./resultIMG/19.jpg'],
+            ['🐯', '👊', '🐯무술가👊','./resultIMG/20.jpg'],
+            ['🧚‍♀️', '🔮', '🧚‍♀️마법 소녀🔮','./resultIMG/21.jpg'],
+            ['📚', '👩‍🏫', '📚선생님👩‍🏫','./resultIMG/22.jpg'],
+            ['🏹', '🏰', '🏹성 지키는 궁사🏰','./resultIMG/23.jpg'],
+            ['🦸‍♂️', '💨', '🦸‍♂️도망가는 영웅💨','./resultIMG/24.jpg'],
+            ['🕵️‍♂️', '🕰️', '🕵️‍♂️탐정🕰️','./resultIMG/25.jpg'],
+            ['🏄‍♀️', '🌊', '🏄‍♀️서핑 천재🌊','./resultIMG/26.jpg'],
+            ['🎭', '👑', '🎭연극 배우👑','./resultIMG/27.jpg'],
+            ['🌌', '👽', '🌌외계인 연구가👽','./resultIMG/28.jpg'],
+            ['🗺️', '🎒', '🗺️탐험가🎒','./resultIMG/29.jpg'],
+            ['👑', '💎', '👑보석왕💎','./resultIMG/30.jpg'],
+            ['🐉', '🏔️', '🐉드래곤 사냥꾼🏔️','./resultIMG/31.jpg'],
+            ['🎀', '🌸', '🎀핑크러버🌸','./resultIMG/32.jpg'],
+            ['🦸‍♀️', '⚡', '🦸‍♀️슈퍼히어로⚡','./resultIMG/33.jpg'],
+            ['🦄', '🌈', '🦄마법의 유니콘🌈','./resultIMG/34.jpg'],
+            ['🍭', '🍬', '🍭사탕 킬러🍬','./resultIMG/35.jpg'],
+            ['🧜‍♀️', '🌊', '🧜‍♀️심해 공기 청소부🌊','./resultIMG/36.jpg'],
+            ['🚀', '👽', '🚀외계어 통역사👽','./resultIMG/37.jpg'],
+            ['🌴', '🥥', '🌴코코넛 팔던 해변 상인🥥','./resultIMG/38.jpg'],
+            ['🛸', '🔮', '🛸UFO 점쟁이🔮','./resultIMG/39.jpg'],
+            ['🐘', '🚿', '🐘코끼리 목욕사🚿','./resultIMG/40.jpg'],
+            ['🐔', '👟', '🐔닭 훈련사👟','./resultIMG/41.jpg'],
+            ['🐸', '💼', '🐸개구리 상담사💼','./resultIMG/42.jpg'],
+            ['🦥', '💤', '🦥나른함 연구자💤','./resultIMG/43.jpg'],
+            ['🐿️', '🥜', '🐿️다람쥐 심리학자🥜','./resultIMG/44.jpg'],
+            ['🤯', '🌪️', '🤯뇌 폭발 예방사🌪️','./resultIMG/45.jpg'],
+            ['😎', '💻', '😎해커💻','./resultIMG/46.jpg'],
+            ['🤪', '😵', '🤪감성 폭발자😵','./resultIMG/47.jpg'],
+            ['🐶', '🛀', '🐶개 목욕사🛀','./resultIMG/48.jpg'],
+            ['🐧', '🎸', '🐧펭귄 록 스타🎸','./resultIMG/49.jpg'],
+            ['🦸‍♂️', '🌭', '🦸‍♂️핫도그 히어로🌭','./resultIMG/50.jpg'],
+            ['🐔', '🥚', ' 🐔계란 예술가🥚','./resultIMG/51.jpg'],
+            ['🧜‍♂️', '🌌', '🧜‍♂️우주 인어🌌','./resultIMG/52.jpg']
+            ];
+
+            var randomNumber = Math.floor(Math.random() * 52)+1;
+
+            // 선정 이모지
+            var emoji1 = Array[randomNumber][0];
+            var emoji2 = Array[randomNumber][1];
+
+            // 선정 직업
+            var jab = Array[randomNumber][2];
+
+            // 배경 이미지 선정
+            var backimg = Array[randomNumber][3];
+
+            // 설명문
+            var sub_text = "📋분석결과를 알려드릴게요!<br>당신의 이모지 캐릭터는 "+jab+"입니다!<br>당신의 특징은...<br><br>";
+
+            // 로컬스토리지에서 객체 가져오기 Q1 ~ Q10
+            var result = JSON.parse(localStorage.getItem('result'));
+
+            // sum에 점수 합계
+            for (var key in result) {
+                if (key.startsWith('Q')) {
+                    sum += result[key];
+                }
+            }
+
+            // Q1
+            if(result.Q1 == 1){
+                sub_text += "- 끝까지 문제를 해결하려함.<br>"
+            } else if(result.Q1 == 2){
+                sub_text += "- 신속, 정확을 중요시함.<br>"
+            } else if(result.Q1 == 3){
+                sub_text += "- 무엇이든 안정적으로 대처하려고함.<br>"
+            }
+
+            // Q2
+            if(result.Q2 == 1){
+                sub_text += "- 누구에게든 마음이 열려있음.<br>"
+            } else if(result.Q2 == 2){
+                sub_text += "- 안정된 환경을 좋아함.<br>"
+            } else if(result.Q2 == 3){
+                sub_text += "- 변화를 싫어함.<br>"
+            }
+
+            // Q3
+            if(result.Q3 == 1){
+                sub_text += "- 솔직하게 말하는 편임.<br>"
+            } else if(result.Q3 == 2){
+                sub_text += "- 상황 보면서 할말 다 하는 편임.<br>"
+            } else if(result.Q3 == 3){
+                sub_text += "- 말못하고 속으로 후회하는 경우 많은편임.<br>"
+            }
+
+            // Q6
+            if(result.Q6 == 1){
+                sub_text += "- 공부 혼자하는거 짱좋아함.<br>"
+            } else if(result.Q6 == 2){
+                sub_text += "- 공부할 때 모르는건 선생님한테 달려가는편.<br>"
+            } else if(result.Q6 == 3){
+                sub_text += "- 공부할 때 모르는건 친구한테 물어보는편.<br>"
+            }
+
+            // Q7
+            if(result.Q2 == 1){
+                sub_text += "- 타인의 도음을 많이 좋아하지 않음.<br>"
+            } else if(result.Q2 == 2){
+                sub_text += "- 타인의 도움을 받는 것을 꺼리지 않음.<br>"
+            } else if(result.Q2 == 3){
+                sub_text += "- 차근차근, 인내심 좋은편.<br>"
+            }
+
+
+
+            // Q9
+            if(result.Q2 == 1){
+                sub_text += "- 인간 관계를 중요시함.<br>"
+            } else if(result.Q2 == 2){
+                sub_text += "- 상대방들의 이야기를 듣는 것을 선호하는 편임.<br>"
+            } else if(result.Q2 == 3){
+                sub_text += "- 눈치, 상황판단 빠른편.<br>"
+            }
+
+
+
+
+
+
+
+
+
+            // 이모지 뿌리기
+            const emojis = ['😀', '😍', '🌟', '🐱', '🌈', '🎉', '🌸', '❤️', '🌊', '🌞'];
+
+            function getRandomEmoji() {
+                return emojis[Math.floor(Math.random() * emojis.length)];
+            }
+
+            for (let i = 0; i < 200; i++) {
+                const emojiElement = document.createElement('div');
+                emojiElement.classList.add('emoji');
+                emojiElement.innerHTML = getRandomEmoji();
+
+                const randomX = Math.random() * 1;
+                const randomY = Math.random() * 1;
+
+                emojiElement.style.left = `calc(50% + ${randomX}px)`;
+                emojiElement.style.top = `calc(50% + ${randomY}px)`;
+
+                document.querySelector('.emoji-container').appendChild(emojiElement);
+            }
+
+            function flyAway() {
+                const emojis = document.querySelectorAll('.emoji');
+
+                emojis.forEach((emoji) => {
+                    const randomX = (Math.random() - 0.5) * 2 * window.innerWidth;
+                    const randomY = (Math.random() - 0.5) * 2 * window.innerHeight;
+
+                    emoji.style.transition = 'transform 1s ease-out, opacity 1s ease-in';
+                    emoji.style.transform = `translate(${randomX}px, ${randomY}px)`;
+                    emoji.style.opacity = '0';
+                });
+                document.getElementById('flyAwayButton').remove(); // 버튼 삭제
+
+                setTimeout(() => {
+                    emojis.forEach((emoji) => {
+                        emoji.remove();
+                    });
+                    // 결과 화면 로딩
+                    clearBody();
+                    setEmojiBackground(emoji1, emoji2);
+                }, 1000);
+            }
+
+            document.getElementById('flyAwayButton').addEventListener('click', flyAway);
+
+            // 결과 함수화
+            function setEmojiBackground(emoji1, emoji2) {
+            const emojis = [emoji1, emoji2];
+
+            const style = document.createElement('style');
+            style.innerHTML = `
+                    @font-face {
+                    font-family: 'Cafe24Ssurround';
+                    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24Ssurround.woff') format('woff');
+                    font-weight: normal;
+                    font-style: normal;
+                }
+
+                *{
+                    font-family: Cafe24Ssurround, Arial, sans-serif;
+                }
+
+                body {
+                    background-attachment: fixed;
+                    background-size: cover; /* 배경 이미지를 화면에 꽉 채우도록 설정 */
+                    background-repeat: no-repeat; /* 배경 이미지 반복 없음 */
+                    margin: 0;
+                    overflow: hidden;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100vh;
+                    font-size: 2em;
+                    color: white;
+                    position: relative;
+                }
+
+                .name {
+                    top: 10%;
+                    color: #FA5882;
+                    font-size: 1.0em;
+                    position: absolute;
+                    z-index: 1;
+                    text-align: center;
+                    width: auto;
+                    background-color: #ffffff;
+                    border: solid 5px black;
+                    border-radius: 20px;
+                    padding: 10px;
+                }
+
+                .text {
+                    top: 25%;
+                    color: #2E2E2E;
+                    font-size: 0.5em;
+                    position: absolute;
+                    z-index: 1;
+                    text-align: left;
+                    width: 80%;
+                    max-width: 500px;
+                    background-color: #ffffff;
+                    border: solid 5px black;
+                    border-radius: 20px;
+                    padding: 10px;
+                }
+
+                .share {
+                    bottom: 10%;
+                    color: #2E2E2E;
+                    font-size: 0.5em;
+                    position: absolute;
+                    z-index: 1;
+                    text-align: center;
+                    width: auto;
+                    background-color: #ffffff;
+                    border: solid 5px black;
+                    border-radius: 50px;
+                    padding: 10px;
+                    left: 51%;
+                }
+
+                .re {
+                    bottom: 10%;
+                    color: #2E2E2E;
+                    font-size: 0.5em;
+                    position: absolute;
+                    z-index: 1;
+                    text-align: center;
+                    width: auto;
+                    background-color: #ffffff;
+                    border: solid 5px black;
+                    border-radius: 50px;
+                    padding: 10px;
+                    right: 51%;
+                }
+
+                .footer {
+                    font-size: 10px;
+                    background-color: #f8f9fa;
+                    text-align: center;
+                    position: fixed;
+                    bottom: 0;
+                    width: 100%;
+                }
+            `;
+
+            // body의 배경을 변경
+            document.body.style.backgroundImage = 'url(' + backimg + ')';
+            document.body.style.backgroundSize = 'cover';
+            document.body.style.backgroundPosition = 'center';
+
+            document.head.appendChild(style);
+
+            const nameDiv = document.createElement('div');
+            nameDiv.className = 'name';
+            nameDiv.innerHTML = jab;
+            document.body.appendChild(nameDiv);
+
+
+            const textDiv = document.createElement('div');
+            textDiv.className = 'text';
+            textDiv.innerHTML = sub_text;
+            document.body.appendChild(textDiv);
+
+            const shareDiv = document.createElement('div');
+            shareDiv.className = 'share';
+            shareDiv.innerHTML = '🔗URL';
+            document.body.appendChild(shareDiv);
+
+            shareDiv.addEventListener('click', () => {
+                const urlToCopy = 'https://emojimindtest.com'; // 여기에 복사하고 싶은 URL을 넣어주세요.
+
+                const tempInput = document.createElement('input');
+                tempInput.value = urlToCopy;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempInput);
+
+                alert(`URL이 클립보드에 복사되었습니다: ${urlToCopy}`);
+            });
+
+                const reDiv = document.createElement('div');
+                reDiv.className = 're';
+                reDiv.innerHTML = '🏠홈으로';
+                document.body.appendChild(reDiv);
+
+                reDiv.addEventListener('click', () => {
+                    const targetUrl = './index.html'; // 이동할 웹사이트
+                    window.location.href = targetUrl;
+                });
+            }
+
+            function clearBody() {
+                document.body.innerHTML = '';
+            }
+
+
+
+        </script>
+    </div>
+</body>
+</html>
