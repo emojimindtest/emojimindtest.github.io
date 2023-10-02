@@ -1,0 +1,12 @@
+User-agent: *
+Disallow: /resultIMG/
+Allow: /content_img1.jpg
+Allow: /content_img2.jpg
+Allow: /content_img3.jpg
+Allow: /emojicharactertest.html
+Disallow: /emojicharactertestresult.html
+Disallow: /favicon.jpg
+Disallow: /insta.jpg
+Disallow: /loading.html
+Allow: /index.html
+Disallow: /OpenGraph_img.jpg
