@@ -22,7 +22,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
         }
 
         .emoji-container {
@@ -78,8 +77,6 @@
     <div class="emoji-container">
         <button id="flyAwayButton" class="emoji-button">결과 확인</button>
         <script>
-            // 점수 합계
-            var sum = 0;
 
             /* // 테스트용 객체
             var result = {
@@ -133,9 +130,9 @@
             ['🦸‍♀️', '⚡', '🦸‍♀️슈퍼히어로⚡','./resultIMG/33.jpg'],
             ['🦄', '🌈', '🦄마법의 유니콘🌈','./resultIMG/34.jpg'],
             ['🍭', '🍬', '🍭사탕 킬러🍬','./resultIMG/35.jpg'],
-            ['🧜‍♀️', '🌊', '🧜‍♀️심해 공기 청소부🌊','./resultIMG/36.jpg'],
+            ['🧜‍♀️', '🌊', '🧜‍♀️심해 공기청소부🌊','./resultIMG/36.jpg'],
             ['🚀', '👽', '🚀외계어 통역사👽','./resultIMG/37.jpg'],
-            ['🌴', '🥥', '🌴코코넛 팔던 해변 상인🥥','./resultIMG/38.jpg'],
+            ['🌴', '🥥', '🌴코코넛 팔던 해변상인🥥','./resultIMG/38.jpg'],
             ['🛸', '🔮', '🛸UFO 점쟁이🔮','./resultIMG/39.jpg'],
             ['🐘', '🚿', '🐘코끼리 목욕사🚿','./resultIMG/40.jpg'],
             ['🐔', '👟', '🐔닭 훈련사👟','./resultIMG/41.jpg'],
@@ -165,81 +162,46 @@
             var backimg = Array[randomNumber][3];
 
             // 설명문
-            var sub_text = "📋분석결과를 알려드릴게요!<br>당신의 이모지 캐릭터는 "+jab+"입니다!<br>당신의 특징은...<br><br>";
+            var sub_text = "📋분석결과를 알려드릴게요!<br>당신의 이모지 캐릭터는 "+jab+"입니다!<br><br>";
 
             // 로컬스토리지에서 객체 가져오기 Q1 ~ Q10
             var result = JSON.parse(localStorage.getItem('result'));
 
-            // sum에 점수 합계
+            // 키들의 값을 세기 위한 객체 초기화
+            var count = {};
+
+            // 결과 객체(result)의 각 키의 값을 순회하며 count 객체 업데이트
             for (var key in result) {
-                if (key.startsWith('Q')) {
-                    sum += result[key];
+                var value = result[key];
+                if (count[value]) {
+                    count[value]++;
+                } else {
+                    count[value] = 1;
                 }
             }
 
-            // Q1
-            if(result.Q1 == 1){
-                sub_text += "- 끝까지 문제를 해결하려함.<br>"
-            } else if(result.Q1 == 2){
-                sub_text += "- 신속, 정확을 중요시함.<br>"
-            } else if(result.Q1 == 3){
-                sub_text += "- 무엇이든 안정적으로 대처하려고함.<br>"
+            // count 객체에서 가장 큰 값을 찾음
+            var maxCount = 0;
+            var mostFrequentValue;
+            for (var value in count) {
+                if (count[value] > maxCount) {
+                    maxCount = count[value];
+                    mostFrequentValue = value;
+                }
             }
 
-            // Q2
-            if(result.Q2 == 1){
-                sub_text += "- 누구에게든 마음이 열려있음.<br>"
-            } else if(result.Q2 == 2){
-                sub_text += "- 안정된 환경을 좋아함.<br>"
-            } else if(result.Q2 == 3){
-                sub_text += "- 변화를 싫어함.<br>"
+            // 
+            if(mostFrequentValue == 1){
+                sub_text += "당신은 주로 즐거움과 긍정적인 감정을 중요시하는 분이실 것 같아요. 대담하고 독립적인 성향을 가지고 있을 가능성이 높아요. 또한 자신의 감정을 솔직하게 표현하는 경향이 있을 거예요. 이는 주변 사람들에게 당신의 진실된 모습을 보여줄 수 있는 민감한 면모를 보여줄 거예요. 더불어 어려운 상황에서도 당당하게 대처하며, 독립심이 높아 다른 사람들의 의견에 크게 의존하지 않는 경향이 있을 거예요.";
+            } else if(mostFrequentValue == 2){
+                sub_text += "당신은 지적 호기심이 높고 내적 성장을 중요시하는 경향이 있어 보여요. 친절하고 사려 깊은 성향을 가질 가능성이 높아요. 새로운 지식과 경험을 추구하는 면모가 강할 수 있어요. 또한 지적인 상호작용을 즐기며, 자신의 생각과 아이디어를 공유하는 것을 즐기는 편이에요. 내적 성장과 발전에 관심이 많아, 끊임없이 새로운 것을 배우고 발전하는 데 열정을 가지고 있을 거예요.";
+            } else if(mostFrequentValue == 3){
+                sub_text += "당신은 창의적이고 예술적인 측면이 강할 것 같아요. 자유로운 영혼이며, 새로운 경험과 감정을 탐험하는 것을 즐기실 가능성이 높아요. 미적 감각과 예술적인 표현을 중요시하는 경향이 있어요. 상상력이 풍부하며, 예술이나 창작 활동을 통해 자신의 감정과 아이디어를 표현하는 것을 선호하실 거예요. 또한 주변 환경에 대한 예민함을 가지실 수 있으며, 아름다운 것들에 대한 감성을 높게 가지고 계실 거예요.";
+            } else if(mostFrequentValue == 4){
+                sub_text += "당신은 실용적이고 현실적인 사고를 가지고 계실 것 같아요. 안정된 환경과 일상을 중요시하는 경향이 있을 수 있어요. 조직적이고 규칙적으로 생활하는 것을 선호하는 편일 수 있어요. 또한 실제적인 문제 해결능력을 가지고 있어서, 현실적인 목표를 설정하고 이를 실현하는 데 능숙하실 것 같아요. 또한 일상적인 상황에서도 창의적인 해결책을 찾아내는 능력을 가지고 있을 것 같아요.";
+            } else{
+                sub_text += "당신은 사려 깊고 감수성이 풍부한 성향을 가지고 계실 것 같아요. 주변 사람들의 감정에 민감하게 반응하며, 공감능력이 뛰어난 편이에요. 자신의 감정 뿐만 아니라 다른 이들의 감정도 중요하게 생각하며, 상대방의 입장에서 생각하는 경향이 있어요. 따라서 타인과의 소통과 관계 형성에 능숙하며, 따뜻하고 지지적인 분위기를 조성하는 데 기여할 수 있을 거에요!";
             }
-
-            // Q3
-            if(result.Q3 == 1){
-                sub_text += "- 솔직하게 말하는 편임.<br>"
-            } else if(result.Q3 == 2){
-                sub_text += "- 상황 보면서 할말 다 하는 편임.<br>"
-            } else if(result.Q3 == 3){
-                sub_text += "- 말못하고 속으로 후회하는 경우 많은편임.<br>"
-            }
-
-            // Q6
-            if(result.Q6 == 1){
-                sub_text += "- 공부 혼자하는거 짱좋아함.<br>"
-            } else if(result.Q6 == 2){
-                sub_text += "- 공부할 때 모르는건 선생님한테 달려가는편.<br>"
-            } else if(result.Q6 == 3){
-                sub_text += "- 공부할 때 모르는건 친구한테 물어보는편.<br>"
-            }
-
-            // Q7
-            if(result.Q2 == 1){
-                sub_text += "- 타인의 도음을 많이 좋아하지 않음.<br>"
-            } else if(result.Q2 == 2){
-                sub_text += "- 타인의 도움을 받는 것을 꺼리지 않음.<br>"
-            } else if(result.Q2 == 3){
-                sub_text += "- 차근차근, 인내심 좋은편.<br>"
-            }
-
-
-
-            // Q9
-            if(result.Q2 == 1){
-                sub_text += "- 인간 관계를 중요시함.<br>"
-            } else if(result.Q2 == 2){
-                sub_text += "- 상대방들의 이야기를 듣는 것을 선호하는 편임.<br>"
-            } else if(result.Q2 == 3){
-                sub_text += "- 눈치, 상황판단 빠른편.<br>"
-            }
-
-
-
-
-
-
-
-
 
             // 이모지 뿌리기
             const emojis = ['😀', '😍', '🌟', '🐱', '🌈', '🎉', '🌸', '❤️', '🌊', '🌞'];
@@ -309,18 +271,17 @@
                     background-size: cover; /* 배경 이미지를 화면에 꽉 채우도록 설정 */
                     background-repeat: no-repeat; /* 배경 이미지 반복 없음 */
                     margin: 0;
-                    overflow: hidden;
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    height: 100vh;
+                    height: calc(100vh + 5px);
                     font-size: 2em;
                     color: white;
                     position: relative;
                 }
 
                 .name {
-                    top: 10%;
+                    top: 15%;
                     color: #FA5882;
                     font-size: 1.0em;
                     position: absolute;
@@ -334,7 +295,7 @@
                 }
 
                 .text {
-                    top: 25%;
+                    top: 35%;
                     color: #2E2E2E;
                     font-size: 0.5em;
                     position: absolute;
@@ -349,7 +310,7 @@
                 }
 
                 .share {
-                    bottom: 10%;
+                    bottom: 13%;
                     color: #2E2E2E;
                     font-size: 0.5em;
                     position: absolute;
@@ -364,7 +325,7 @@
                 }
 
                 .re {
-                    bottom: 10%;
+                    bottom: 13%;
                     color: #2E2E2E;
                     font-size: 0.5em;
                     position: absolute;
@@ -376,15 +337,6 @@
                     border-radius: 50px;
                     padding: 10px;
                     right: 51%;
-                }
-
-                .footer {
-                    font-size: 10px;
-                    background-color: #f8f9fa;
-                    text-align: center;
-                    position: fixed;
-                    bottom: 0;
-                    width: 100%;
                 }
             `;
 
@@ -434,6 +386,22 @@
                     window.location.href = targetUrl;
                 });
             }
+            // 새로운 footer 요소 생성
+            var footer = document.createElement("footer");
+            footer.className = "footer";
+
+            // 두 번째 <p> 요소 생성 및 텍스트 추가
+            var secondParagraph = document.createElement("p");
+            var secondParagraphText = document.createTextNode("2023 EmojiMindTest 이모지 심리테스트");
+            secondParagraph.appendChild(secondParagraphText);
+
+            // footer에 생성한 요소들 추가
+            footer.appendChild(secondParagraph);
+
+            // 생성한 footer를 문서에 추가
+            document.body.appendChild(footer);
+
+
 
             function clearBody() {
                 document.body.innerHTML = '';
