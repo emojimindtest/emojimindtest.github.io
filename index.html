@@ -34,12 +34,38 @@
         align-items: center;
     }
 
+    @keyframes changeEmoji {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.1);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    #emojiHeader {
+        font-size: 20px;
+        animation: changeEmoji 1s infinite;
+        display: inline-block;
+    }
+
+    #content_title1 {
+        font-size: 18px;
+        animation: changeEmoji 1s infinite;
+        display: inline-block;
+    }
+    
+
     .container {
         display: flex;
         flex-direction: column;
         align-items: center;
         max-width: 600px;
         padding: 20px;
+        background-color: #ffffff;
     }
 
     .content-box {
@@ -97,10 +123,10 @@
 </head>
 <body>
     <div class="container">
-        <h1>이모지 심리테스트🤔</h1>
+        <h1><span id="emojiHeader">😉</span>이모지 심리테스트<span id="emojiHeader">🤔</span></h1>
         <div class="content-box" id="content1">
         <img src="./content_img1.jpg" alt="이모지 심리테스트">
-        <h3>이모지 캐릭터 테스트🧙‍♀️</h3>
+        <h3>이모지 캐릭터 테스트<span id="content_title1">😉</span></h3>
         <p>몇가지 질문에 답하면 당신에게 딱 맞는 이모지 캐릭터를 찾아드립니다!</p>
     </div>
 
@@ -136,7 +162,7 @@
             window.location.href = './loading.html'; // 로딩 페이지 이동
         });
 
-        content2.addEventListener('click', function() { // 콘텐츠1
+        content2.addEventListener('click', function() { // 콘텐츠2
             state.page = 2;
             localStorage.setItem('state', JSON.stringify(state)); // 객체를 내부 스토리지에 저장
             window.location.href = './loading.html'; // 로딩 페이지 이동
@@ -145,6 +171,22 @@
         document.getElementById('insta').addEventListener('click', function() {
             window.location.href = 'https://www.instagram.com/emojimindtest/';
         });
+
+        setInterval(function() {
+            let emojis = ["😀", "😁", "😂", "🤣", "😋"];
+            var randomIndex = Math.floor(Math.random() * emojis.length);
+            var randomEmoji = emojis[randomIndex];
+
+            document.getElementById("emojiHeader").textContent = randomEmoji;
+        }, 1000);
+
+        setInterval(function() {
+            var emojis = ["😀", "😁", "😂", "🤣", "😋"];
+            var randomIndex = Math.floor(Math.random() * emojis.length);
+            var randomEmoji = emojis[randomIndex];
+
+            document.getElementById("content_title1").textContent = randomEmoji;
+        }, 1000); // 1000 밀리초 = 1초
     </script>
 </body>
 </html>
