@@ -10,3 +10,5 @@ Disallow: /insta.jpg
 Disallow: /loading.html
 Allow: /index.html
 Disallow: /OpenGraph_img.jpg
+Allow: /EmojiIceCreamTest.html
+Disallow: /EmojiIceCreamTestResult.html

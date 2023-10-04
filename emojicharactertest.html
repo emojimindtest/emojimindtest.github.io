@@ -120,7 +120,7 @@
     </style>
 </head>
 <body>
-    <div class="header">
+    <div class="header" onclick="window.location.href='./index.html'">
         이모지 캐릭터 테스트
     </div>
     <div class="container">
@@ -434,7 +434,7 @@
 
     // 결과 확인 누르면
     document.getElementById('end').addEventListener('click', function() {
-        let endnutton = document.getElementById('Q');
+        let endnutton = document.getElementById('end');
         endnutton.style.backgroundColor = 'lightblue';
         // result 객체의 각 프로퍼티가 1 이상인지 확인
         var isValid = Object.values(result).every(value => value >= 1);
