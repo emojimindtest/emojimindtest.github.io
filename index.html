@@ -58,6 +58,12 @@
         display: inline-block;
     }
     
+    #content_title2 {
+        font-size: 18px;
+        animation: changeEmoji 1s infinite;
+        display: inline-block;
+    }
+    
 
     .container {
         display: flex;
@@ -94,7 +100,7 @@
         padding-right: 30px; /* 텍스트와 이미지 사이의 간격 조절 */
         padding-bottom: 10px; /* 텍스트와 이미지 사이의 간격 조절 */
         max-width: 100%;
-        font-size: 17px; /* 적절한 크기로 수정 */
+        font-size: 15px; /* 적절한 크기로 수정 */
         text-align: left; /* 가운데 정렬 추가 */
     }
 
@@ -125,14 +131,15 @@
     <div class="container">
         <h1><span id="emojiHeader">😉</span>이모지 심리테스트<span id="emojiHeader">🤔</span></h1>
         <div class="content-box" id="content1">
-        <img src="./content_img1.jpg" alt="이모지 심리테스트">
+        <img src="./content_img1.jpg" alt="이모지 캐릭터 테스트">
         <h3>이모지 캐릭터 테스트<span id="content_title1">😉</span></h3>
         <p>몇가지 질문에 답하면 당신에게 딱 맞는 이모지 캐릭터를 찾아드립니다!</p>
     </div>
 
         <div class="content-box" id="content2">
-            <img src="./content_img2.jpg" alt="업데이트 이미지">
-            <h3>업데이트 준비중..</h3>
+            <img src="./content_img2.jpg" alt="이모지 아이스크림 테스트">
+            <h3>이모지 아이스크림 테스트<span id="content_title2">🍓</span></h3>
+            <p>내 아이스크림은 무엇일까? 1분만에 확인하기!</p>
         </div>
 
         <div class="content-box">
@@ -186,6 +193,13 @@
             var randomEmoji = emojis[randomIndex];
 
             document.getElementById("content_title1").textContent = randomEmoji;
+        }, 1000); // 1000 밀리초 = 1초
+        setInterval(function() {
+            var emojis = ["🍒", "🥭", "🥝", "🍑", "🍓"];
+            var randomIndex = Math.floor(Math.random() * emojis.length);
+            var randomEmoji = emojis[randomIndex];
+
+            document.getElementById("content_title2").textContent = randomEmoji;
         }, 1000); // 1000 밀리초 = 1초
     </script>
 </body>
